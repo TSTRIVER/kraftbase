@@ -14,17 +14,18 @@ export default function Search() {
   const [step, setStep] = useState(0);
   let [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-  const [width, setWidth] = useState(
-    typeof window !== undefined && window.innerWidth
-  );
+
+  const windowWidth = window?.innerWidth ?? 0;
+
+  const [width, setWidth] = useState(windowWidth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const handleResize = () =>
-      setWidth(typeof window !== undefined && window.innerWidth);
+      setWidth(window?.innerWidth);
 
     if (typeof window !== "undefined") {
-      setWidth(window.innerWidth);
+      setWidth(window?.innerWidth);
       window.addEventListener("resize", handleResize);
       return () => {
         window.removeEventListener("resize", handleResize);
