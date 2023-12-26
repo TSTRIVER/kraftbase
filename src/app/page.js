@@ -14,16 +14,19 @@ export default function Search() {
   const [step, setStep] = useState(0);
   let [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState(new Date());
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(
+    typeof window !== undefined && window.innerWidth
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
+    const handleResize = () =>
+      setWidth(typeof window !== undefined && window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [window.innerWidth]);
+  }, [window?.innerWidth]);
 
   const onNext = () => {
     if (!step && !location) {
