@@ -22,11 +22,15 @@ export default function Search() {
   useEffect(() => {
     const handleResize = () =>
       setWidth(typeof window !== undefined && window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [window?.innerWidth]);
+
+    if (typeof window !== "undefined") {
+      setWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, []);
 
   const onNext = () => {
     if (!step && !location) {
